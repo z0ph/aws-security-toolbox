@@ -6,8 +6,9 @@ LABEL Project="https://github.com/z0ph/aws-security-toolbox"
 WORKDIR /opt/secops
 ENV AWS_DEFAULT_REGION=eu-west-1
 
-RUN apt-get update -y
-RUN apt-get install -y \
+RUN apt-get update -y && \
+    apt-get install -y \
+    bash \
     build-essential \
     autoconf \
     automake \
@@ -15,20 +16,25 @@ RUN apt-get install -y \
     python3.7-dev \
     python3-tk \
     jq \
-    htop \
-    nc \
-    awscli
+    vim \
+    curl \
+    file \
+    git
 
-COPY entrypoint.sh /opt/cloudmapper/entrypoint.sh
+RUN pip install \
+        pipenv \
+        ansi2html \
+        detect-secrets \
+        boto3 \
+        awscli \
+        cloudtracker \
+        scoutsuite \
+        principalmapper
 
-# Install the python libraries needed for CloudMapper
-RUN pip install pipenv
-RUN cd /opt/cloudmapper && pipenv install --skip-lock
+# CloudMapper
+RUN git clone https://github.com/duo-labs/cloudmapper.git /opt/secops/cloudmapper && \
+        cd /opt/secops/cloudmapper && \
+        pipenv install --skip-lock
 
-ENTRYPOINT pipenv run /opt/cloudmapper/entrypoint.sh
-
-# Handle the bash job
-COPY script-fargate.sh /app/script.sh
-RUN chmod +x /app/script.sh
-
-CMD ["bash", "script.sh"]
+# prowler
+RUN git clone https://github.com/toniblyx/prowler /opt/secops/prowler
