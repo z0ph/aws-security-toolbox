@@ -36,5 +36,10 @@ RUN git clone https://github.com/duo-labs/cloudmapper.git /opt/secops/cloudmappe
         cd /opt/secops/cloudmapper && \
         pipenv install --skip-lock
 
+# Enumerate IAM
+RUN git clone https://github.com/andresriancho/enumerate-iam.git /opt/secops/enumerate-iam && \
+    cd /opt/secops/enumerate-iam/ && \
+    pip install -r requirements.txt
+
 # prowler
 RUN git clone https://github.com/toniblyx/prowler /opt/secops/prowler

@@ -15,8 +15,11 @@ DESCRIPTION ?= Docker container for SecOps Professionals
 AWS_REGION ?= eu-west-1
 ################################################
 
+build:
+	@docker build -t ${PROJECT} .
+
 run:
-	@docker run -it -v $HOME/.aws:/root/.aws:ro z0ph/aws-sec-toolbox:latest /bin/bash
+	@docker run -it -v ${HOME}/.aws:/root/.aws:ro aws-security-toolbox:latest /bin/bash
 
 stop:
-	@docker 
+	@docker stop `docker ps -q --filter ancestor=aws-security-toolbox:latest`
