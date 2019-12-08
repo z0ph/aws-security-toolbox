@@ -19,6 +19,7 @@ RUN apt-get update -y && \
     vim \
     curl \
     file \
+    nc \
     git
 
 RUN pip install \

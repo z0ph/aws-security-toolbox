@@ -1,10 +1,11 @@
 # AWS Security Toolbox :lock:
 
-This toolbox will bring to you all necessary apps as a Docker container for SecOps on AWS, especially for auditing purpose.
+This toolbox will bring to you all necessary apps and tooling as a simple and immutable Docker container for SecOps on AWS, especially for auditing and assessment purpose.
 
 ## Requirements
 
-- docker
+- docker [macOS]() or [Linux]()
+- `awscli` configured
 
 ## Tools
 
@@ -32,11 +33,25 @@ Run the magic:
 
         $ make run
 
-Working directory: `/opt/secops`
+Working directory within the container: `/opt/secops`
+
+Run the magic using `aws-vault`:
+
+        $ make vault-run
+
+When you are logged into the shell of the container in interactive mode, you will be able to perform your audit/assessment with confidence.
+
+Example: 
+
+        $ ./opt/secops/prowler -m dfoopskdkspodfoksfpoksepfokpezkpzoekfpok
+
+You can also run audit tools without login the container, using following examples:
+
+        $ 
 
 ### Optional
 
-if you want to build your own container
+if you want to build your own container locally.
 
         $ make build
 
@@ -45,6 +60,6 @@ docker exec -it -v $HOME/.aws:/root/.aws:ro z0ph/aws-sec-toolbox:latest bash
 docker run -it z0ph/aws-sec-toolbox:latest /bin/bash
 ```
 
-#### Ref
+### Ref
 - https://hub.docker.com/r/toniblyx/prowler/dockerfile
 - https://ryanparman.com/posts/2019/running-aws-vault-with-local-docker-containers/
