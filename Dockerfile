@@ -1,6 +1,6 @@
 FROM python:3.7-slim as aws-sec-toolbox
 
-LABEL maintainer="https://github.com/z0ph/"
+LABEL maintainer="Victor GRENU - https://github.com/z0ph/"
 LABEL Project="https://github.com/z0ph/aws-security-toolbox"
 
 WORKDIR /opt/secops
@@ -19,7 +19,7 @@ RUN apt-get update -y && \
     vim \
     curl \
     file \
-    nc \
+    netcat \
     git
 
 RUN pip install \

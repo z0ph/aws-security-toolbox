@@ -1,10 +1,12 @@
 # AWS Security Toolbox :lock:
 
-This toolbox will bring to you all necessary apps and tooling as a simple and immutable Docker container for SecOps on AWS, especially for auditing and assessment purpose.
+This toolbox will bring to you all necessary apps and tooling as a simple portable and preinstalled Docker container for SecOps on AWS, especially for auditing and assessment purpose.
+
+This will reduce the overhead and the headache of installation these tools and dependencies.
 
 ## Requirements
 
-- docker [macOS]() or [Linux]()
+- docker [macOS](https://docs.docker.com/docker-for-mac/) or [Linux](https://docs.docker.com/install/linux/docker-ce/debian/)
 - `awscli` configured
 
 ## Tools
@@ -29,37 +31,35 @@ Clone the repository:
 
         $ git clone https://github.com/z0ph/aws-security-toolbox.git
 
-Run the magic:
+There is two options to use this toolbox, 
 
-        $ make run
+- Option #1, you are using local `awscli` with `~/.aws/credentials` populated.
+- Option #2, you want to use local `aws-vault`.
 
-Working directory within the container: `/opt/secops`
+Info: Working directory within the container: `/opt/secops`
 
-Run the magic using `aws-vault`:
+## Option 1 (Interactive)
 
-        $ make vault-run
+        $ ./ast.sh login
 
-When you are logged into the shell of the container in interactive mode, you will be able to perform your audit/assessment with confidence.
+When you are logged into the shell of the container in interactive mode (`-it`), you will be able to perform your audit/assessment with confidence.
 
-Example: 
+Example:
 
-        $ ./opt/secops/prowler -m dfoopskdkspodfoksfpoksepfokpezkpzoekfpok
+        $ ./opt/secops/prowler/prowler -b | ansi2html -la > /tmp/prowler-report.html
 
-You can also run audit tools without login the container, using following examples:
+*nb: `/tmp` is mapped to your own host `/tmp` folder.*
 
-        $ 
+## Option 2 (`aws-vault`)
+
+        $ ./ast.sh exec COMMAND="./prowler -b | ansi2html -la > prowler-report.html" 
+
+*nb: if you are not using `default` aws-vault profile name, use the following:*
+
+        $ ./ast.sh exec PROFILE_NAME="your_profile_name" COMMAND="/opt/secops/prowler/prowler -b > prowler-report.html" 
 
 ### Optional
 
-if you want to build your own container locally.
+if you want to build your own container **locally** to get latest updates from tools maintainers
 
-        $ make build
-
-```bash
-docker exec -it -v $HOME/.aws:/root/.aws:ro z0ph/aws-sec-toolbox:latest bash
-docker run -it z0ph/aws-sec-toolbox:latest /bin/bash
-```
-
-### Ref
-- https://hub.docker.com/r/toniblyx/prowler/dockerfile
-- https://ryanparman.com/posts/2019/running-aws-vault-with-local-docker-containers/
+        $ ./ast.sh build
