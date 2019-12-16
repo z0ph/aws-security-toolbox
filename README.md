@@ -52,14 +52,12 @@ Example:
 
 ## Option 2 (`aws-vault`)
 
-        $ ./ast.sh exec COMMAND="./prowler -b | ansi2html -la > prowler-report.html" 
+        $ ./ast.sh exec /opt/secops/prowler/prowler -b -s > report-prod.txt 
 
-*nb: if you are not using `default` aws-vault profile name, use the following:*
-
-        $ ./ast.sh exec PROFILE_NAME="your_profile_name" COMMAND="/opt/secops/prowler/prowler -b > prowler-report.html" 
+*nb: if you are not using `default` aws-vault profile name, please modify options in `ast.sh`*
 
 ### Optional
 
 if you want to build your own container **locally** to get latest updates from tools maintainers
 
-        $ ./ast.sh build
+        $ make build
