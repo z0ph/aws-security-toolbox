@@ -10,7 +10,7 @@ DESCRIPTION="Docker container image for SecOps folks"
 
 ################ Config ########################
 AWS_REGION="eu-west-1"
-PROFILE_NAME="zoph"
+PROFILE_NAME="default"
 CONTAINER_IMAGE="aws-security-toolbox:latest"
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
