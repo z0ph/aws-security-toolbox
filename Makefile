@@ -12,10 +12,6 @@ PROJECT ?= aws-security-toolbox
 DESCRIPTION ?= Docker container for SecOps folks
 ################################################
 
-################ Config ########################
-AWS_REGION ?= eu-west-1
-################################################
-
 build:
 	@docker build -t ${PROJECT} .
 

@@ -1,16 +1,15 @@
 #!/bin/bash
 
-# victor.grenu@gmail.com
+# vgrenu@zoph.io
 # https://zoph.me
 
 ################ Project #######################
-PROJECT="AWS-Security-Toolbox (AST)"
-DESCRIPTION="Docker container image for SecOps folks"
+PROJECT="aws-security-toolbox"
+DESCRIPTION="Docker image for SecOps folks"
 ################################################
 
 ################ Config ########################
-AWS_REGION="eu-west-1"
-PROFILE_NAME="default"
+PROFILE_NAME="zoph"
 CONTAINER_IMAGE="aws-security-toolbox:latest"
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -21,6 +20,7 @@ help() {
 	echo "$DESCRIPTION"
 	echo ""
 	echo "	build - build the container image based on Dockerfile (update tools)"
+    echo "	pull - pull the container image from Docker hub"
 	echo "	login - log-in to the container image using interactive mode"
 	echo "	exec [command] - exec your command using aws-vault remotly"
 	echo "	stop - stop the current running SecOps Container"
@@ -29,6 +29,12 @@ help() {
 build() {
 	docker build -t $PROJECT .
     echo "--> Container: $CONTAINER_IMAGE built successfully"
+}
+
+pull() {
+	docker pull zoph/$PROJECT
+    echo "--> Container: zoph/$CONTAINER_IMAGE pulled successfully"
+    docker tag zoph/$CONTAINER_IMAGE zoph/$PROJECT:$PROJECT
 }
 
 login() {
@@ -43,7 +49,7 @@ exec() {
     # echo $AWS_SECRET_ACCESS_KEY
     # echo $AWS_SESSION_TOKEN
     # echo $AWS_SECURITY_TOKEN
-    printf "==> Running: ${GREEN}$@${NC}\n"
+    printf "==> Running: ${GREEN}$@${NC} (aws-vault profile: $PROFILE_NAME)\n"
     docker run -it \
         -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
         -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
@@ -59,6 +65,8 @@ stop() {
 
 if [[ "$1" == "build"* ]]; then
     build
+elif [[ "$1" == "pull"* ]]; then
+    pull
 elif [[ "$1" == "login"* ]]; then
     login
 elif [[ "$1" == "exec"* ]]; then
