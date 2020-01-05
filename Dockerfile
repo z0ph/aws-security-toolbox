@@ -4,7 +4,6 @@ LABEL maintainer="Victor GRENU - https://github.com/z0ph/"
 LABEL Project="https://github.com/z0ph/aws-security-toolbox"
 
 WORKDIR /opt/secops
-ENV AWS_DEFAULT_REGION=eu-west-1
 
 RUN apt-get update -y && \
     apt-get install -y \
