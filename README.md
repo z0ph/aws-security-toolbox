@@ -24,7 +24,7 @@ This will reduce the overhead and the headache of installation these tools and d
 
 - docker [macOS](https://docs.docker.com/docker-for-mac/) or [Linux](https://docs.docker.com/install/linux/docker-ce/debian/)
 - `awscli` installed & configured
-- create `.env` file before building your Docker image locally (see `[.env.example](./.env.example)`) to set your `DEFAULT_AWS_REGION`
+- create `.env` file before building your Docker image locally (see [.env.example](./.env.example)) to set your `DEFAULT_AWS_REGION`
 
 ## Usage
 
