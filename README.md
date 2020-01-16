@@ -1,4 +1,4 @@
-# AWS Security Toolbox :lock:
+# AWS Security Toolbox (AST) :lock:
 
 This toolbox will bring to you all necessary apps and tooling as a simple portable and preinstalled Docker container for SecOps on AWS, especially for auditing and assessments purpose.
 
@@ -34,8 +34,8 @@ Clone the repository:
 
 There is two options to use this toolbox,
 
-- Option #1 (Interactive), you are using local `awscli` with `~/.aws/credentials` populated.
-- Option #2 (aws-vault), you want to use your local `aws-vault` installation.
+- Option #1 (**Interactive**), you are using local `awscli` with `~/.aws/credentials` populated.
+- Option #2 (`aws-vault`), you want to use your local `aws-vault` installation.
 
 *Info: Working directory within the container: `/opt/secops`*
 

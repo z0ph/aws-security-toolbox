@@ -13,6 +13,7 @@ PROFILE_NAME="default"
 CONTAINER_IMAGE="aws-security-toolbox:latest"
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
+export $(cat .env | xargs)
 ################################################
 
 help() {

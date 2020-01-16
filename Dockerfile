@@ -6,7 +6,7 @@ LABEL Project="https://github.com/z0ph/aws-security-toolbox"
 WORKDIR /opt/secops
 
 RUN apt-get update -y && \
-    apt-get install -y \
+    apt-get install --no-install-recommends -y \
     bash \
     build-essential \
     autoconf \
@@ -21,7 +21,7 @@ RUN apt-get update -y && \
     netcat \
     git
 
-RUN pip install \
+RUN pip --no-cache-dir install \
         pipenv \
         ansi2html \
         detect-secrets \
