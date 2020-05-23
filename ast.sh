@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # vgrenu@zoph.io
-# https://zoph.me
+# https://zoph.io
 
 ################ Project #######################
 PROJECT="aws-security-toolbox"
@@ -9,7 +9,7 @@ DESCRIPTION="Docker image for SecOps folks"
 ################################################
 
 ################ Config ########################
-PROFILE_NAME="default"
+PROFILE_NAME="zoph-audit"
 CONTAINER_IMAGE="aws-security-toolbox:latest"
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -23,7 +23,7 @@ help() {
 	echo "	build - build the container image based on Dockerfile (update tools)"
     echo "	pull - pull the container image from Docker hub"
 	echo "	login - log-in to the container image using interactive mode"
-	echo "	exec [command] - exec your command using aws-vault remotly"
+	echo "	exec [command] - exec your command using aws-vault remotly - using $PROFILE_NAME Profile"
 	echo "	stop - stop the current running SecOps Container"
 }
 
@@ -44,12 +44,8 @@ login() {
 
 exec() {
     unset AWS_VAULT
-    export $(aws-vault exec $PROFILE_NAME --assume-role-ttl=1h -- env | grep ^AWS | xargs)
-    # For troubleshooting, uncomment below :)
-    # echo $AWS_ACCESS_KEY_ID
-    # echo $AWS_SECRET_ACCESS_KEY
-    # echo $AWS_SESSION_TOKEN
-    # echo $AWS_SECURITY_TOKEN
+    PROFILE_NAME="zoph-audit"
+    export $(aws-vault exec $PROFILE_NAME -- env | grep ^AWS | xargs)
     printf "==> Running: ${GREEN}$@${NC} (aws-vault profile: $PROFILE_NAME)\n"
     docker run -it \
         -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
