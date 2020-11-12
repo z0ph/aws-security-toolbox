@@ -38,7 +38,11 @@ pull() {
 }
 
 login() {
-    docker run -it -v ${HOME}/.aws:/root/.aws:ro --mount src="/tmp",target=/tmp,type=bind ${CONTAINER_IMAGE} /bin/bash
+    docker run -it \
+        -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+        -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+        -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
+        -v ${HOME}/.aws:/root/.aws:ro --mount src="/tmp",target=/tmp,type=bind ${CONTAINER_IMAGE} /bin/bash
 }
 
 exec() {
