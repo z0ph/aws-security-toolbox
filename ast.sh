@@ -9,7 +9,6 @@ DESCRIPTION="Docker image for SecOps folks"
 ################################################
 
 ################ Config ########################
-PROFILE_NAME="default"
 CONTAINER_IMAGE="aws-security-toolbox:latest"
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -44,13 +43,13 @@ login() {
 
 exec() {
     unset AWS_VAULT
-    export $(aws-vault exec ${PROFILE_NAME} --assume-role-ttl=1h -- env | grep ^AWS | xargs)
+    export $(aws-vault exec ${AWS_PROFILE} --assume-role-ttl=1h -- env | grep ^AWS | xargs)
     # For troubleshooting, uncomment below :)
     # echo ${AWS_ACCESS_KEY_ID}
     # echo ${AWS_SECRET_ACCESS_KEY}
     # echo ${AWS_SESSION_TOKEN}
     # echo ${AWS_SECURITY_TOKEN}
-    printf "==> Running: ${GREEN}$@${NC} (aws-vault profile: ${PROFILE_NAME})\n"
+    printf "==> Running: ${GREEN}$@${NC} (aws-vault profile: ${AWS_PROFILE})\n"
     docker run -it \
         -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
         -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
